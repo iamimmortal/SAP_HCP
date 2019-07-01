@@ -1,0 +1,35 @@
+service{
+    "MYSURVEY"."ROLE" as "Role" // navigates ("A" as "roles")
+        create forbidden
+        update forbidden
+        delete forbidden;
+    
+    "MYSURVEY"."QUESTION" as "Question"
+        create forbidden
+        update forbidden
+        delete forbidden;
+    
+     "MYSURVEY"."QUESTION_ASSIGNED" as "Question_Assigned" // navigates ("B" as "questions")
+        create forbidden
+        update forbidden
+        delete forbidden  ;
+        
+      //  association "A" principal "Role"("ROLEID") multiplicity "1" dependent "Question_Assigned"("ROLEID") multiplicity "*"; 
+        
+        // association "B" principal "Question_Assigned"("QUESTIONID") multiplicity "1" dependent "Question"("QUESTIONID") multiplicity "*"; 
+  //create using "DEV.MySurvey::sqljoin"
+  //events( before "DEV.MySurvey.callProcedure.xsjslib::callProcedure");
+    
+   // create events ( before "DEV.MySurvey.callProcedure.xsjs::callProcedure" )
+   "DEV.MySurvey::calculate" as "Calculate"  
+   keys generate local "ROLEID"
+   parameters via entity "ROLEID";
+   
+   
+
+    
+}
+settings
+{
+support null;
+}
