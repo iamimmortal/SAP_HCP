@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="calculate" applyPrivilegeType="ANALYTIC_PRIVILEGE" dataCategory="CUBE" schemaVersion="2.3" defaultClient="$$client$$" visibility="reportingEnabled" calculationScenarioType="SCRIPT_BASED" scriptParametersCaseSensitive="true" enforceSqlExecution="false">
+<descriptions defaultDescription="calculate"/>
+<localVariables>
+  <variable id="roleid" parameter="true">
+    <descriptions defaultDescription="roleid"/>
+    <variableProperties datatype="INTEGER" mandatory="false">
+      <valueDomain type="empty"/>
+      <selection multiLine="false" type="SingleValue"/>
+      <defaultRange/>
+    </variableProperties>
+  </variable>
+</localVariables>
+<variableMappings/>
+<dataSources/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:SqlScriptView" id="Script_View">
+    <viewAttributes>
+      <viewAttribute id="QUESTIONTEXT" datatype="VARCHAR" length="255"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <localVariable>#roleid</localVariable>
+    <definition>/********* Begin Procedure Script ************/ 
+BEGIN 
+   
+   
+  /* declare roleid int;*/
+   call &quot;MYSURVEY&quot;.&quot;DEV.MySurvey::sqljoin&quot;(:roleid,it_tab);
+   var_out = select QUESTIONTEXT from :it_tab; 
+
+END /********* End Procedure Script ************/   </definition>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Script_View">
+  <attributes/>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="QUESTIONTEXT" order="1" aggregationType="sum" engineAggregation="count" measureType="simple">
+      <descriptions defaultDescription="QUESTIONTEXT"/>
+      <measureMapping columnObjectName="Script_View" columnName="QUESTIONTEXT"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
