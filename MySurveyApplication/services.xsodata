@@ -1,3 +1,0 @@
-service {
-    "MYSURVEYAPPLICATIONSCHEMA"."ROLE" as "Role";
-}
