@@ -1,0 +1,15 @@
+PROCEDURE "MYSURVEY"."DEV.MySurvey::sqljoin" (in role INT,out return_tt "MYSURVEY"."DEV.MySurvey/TT")
+   LANGUAGE SQLSCRIPT
+   SQL SECURITY INVOKER
+   --DEFAULT SCHEMA <default_schema_name>
+   READS SQL DATA AS
+BEGIN
+   /*************************************
+       Write your procedure logic 
+   *************************************/
+   
+   return_tt =  select c.QUESTIONTEXT from "MYSURVEY"."ROLE" as a
+          inner join "MYSURVEY"."QUESTION_ASSIGNED" as b on a.ROLEID = b.ROLEID
+          inner join "MYSURVEY"."QUESTION" as c on b.QUESTIONID = c.QUESTIONID
+          where a.ROLEID = role;
+END
