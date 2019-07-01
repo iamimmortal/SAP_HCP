@@ -1,9 +1,0 @@
-role DEV.MySurvey::system
-{
-system privilege: CREATE SCHEMA;
-
-catalog schema "MYSURVEY":SELECT;
-
-application privilege: "DEV.MySurvey::Execute";
-
-}
